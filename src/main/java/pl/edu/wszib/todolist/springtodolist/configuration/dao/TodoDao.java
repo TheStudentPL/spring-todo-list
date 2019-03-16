@@ -13,9 +13,6 @@ public interface TodoDao extends CrudRepository<Todo, Integer> {
 
     List<Todo> findAll();
     List<Todo> findTop5ByStatusIsNotOrderByDueDateDesc(Status status);
+    int countAllByStatusIs(Status status);
 
-    /* druga wersja
-    @Query("SELECT t FROM Todo t where t.status not like 'COMPLETED' order by t.dueDate desc")
-    List<Todo> query();
-    */
 }

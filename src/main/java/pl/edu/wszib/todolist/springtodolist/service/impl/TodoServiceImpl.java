@@ -53,12 +53,11 @@ public class TodoServiceImpl implements TodoService {
     public TodoDTO update(TodoDTO dto) {
         Todo todo = todoDao.findById(dto.id)
                 .orElse(new Todo()); // moze byc Optionalem, idenpotentny robi wiecej niz moze. put vs post
-        Todo converterd = converterComponent.convert(dto);
-        todo.setStatus(converterd.getStatus());
-        todo.setTitle(converterd.getTitle());
-        todo.setDueDate(converterd.getDueDate());
-        return converterComponent.convert(
-                todoDao.save(todo));
+        Todo converted = converterComponent.convert(dto);
+        todo.setStatus(converted.getStatus());
+        todo.setTitle(converted.getTitle());
+        todo.setDueDate(converted.getDueDate());
+        return converterComponent.convert(todoDao.save(todo));
     }
 
     @Override
@@ -72,8 +71,16 @@ public class TodoServiceImpl implements TodoService {
     @Override
     public List<TodoDTO> upcoming() {
         return todoDao
-                .findTop5ByStatusIsNotOrderByDueDateDesc(Status.COMPLETED).stream()
+                .findTop5ByStatusIsNotOrderByDueDateDesc(Status.NEW).stream()
                 .map(converterComponent::convert)
                 .collect(Collectors.toList());
-}
+        }
+
+    @Override
+    public int count(Status status) {
+        return todoDao
+                .countAllByStatusIs(status);
+    }
+
+
 }
