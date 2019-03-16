@@ -35,8 +35,8 @@ public class TodoServiceImpl implements TodoService {
 
     @Override
     public TodoDTO add(TodoDTO dto) {
+        dto.status = Status.NEW.toString();
         Todo todo = converterComponent.convert(dto);
-        todo.setStatus(Status.NEW);
         return converterComponent.convert(
                         todoDao.save(todo)
         );
@@ -69,5 +69,11 @@ public class TodoServiceImpl implements TodoService {
                 .orElse(null);
     }
 
-
+    @Override
+    public List<TodoDTO> upcoming() {
+        return todoDao
+                .findTop5ByStatusIsNotOrderByDueDateDesc(Status.COMPLETED).stream()
+                .map(converterComponent::convert)
+                .collect(Collectors.toList());
+}
 }

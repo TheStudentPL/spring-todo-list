@@ -12,7 +12,6 @@ public interface TodoService {
     TodoDTO find(Integer id);
     TodoDTO update(TodoDTO dto);
     TodoDTO delete(Integer id);
-
-
+    List<TodoDTO> upcoming();
 
 }
