@@ -14,5 +14,5 @@ public interface TodoDao extends CrudRepository<Todo, Integer> {
     List<Todo> findAll();
     List<Todo> findTop5ByStatusIsNotOrderByDueDateDesc(Status status);
     int countAllByStatusIs(Status status);
-
+    List<Todo> findAllByStatus(Status status);
 }

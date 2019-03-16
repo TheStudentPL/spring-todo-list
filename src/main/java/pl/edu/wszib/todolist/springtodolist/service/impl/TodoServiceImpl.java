@@ -82,5 +82,10 @@ public class TodoServiceImpl implements TodoService {
                 .countAllByStatusIs(status);
     }
 
-
+    @Override
+    public List<TodoDTO> search(Status status) {
+        return todoDao.findAllByStatus(status).stream()
+                .map(converterComponent::convert)
+                .collect(Collectors.toList());
+    }
 }

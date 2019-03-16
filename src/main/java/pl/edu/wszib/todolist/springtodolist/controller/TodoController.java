@@ -55,4 +55,8 @@ public class TodoController {
         return todoService.update(todoDTO);
     }
 
+    @GetMapping("/todos/search/{status}")
+    public List<TodoDTO> search(@PathVariable Status status){
+        return todoService.search(status);
+    }
 }

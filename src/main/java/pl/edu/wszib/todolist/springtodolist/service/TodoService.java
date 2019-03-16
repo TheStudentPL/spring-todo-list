@@ -15,4 +15,5 @@ public interface TodoService {
     TodoDTO delete(Integer id);
     List<TodoDTO> upcoming();
     int count(Status status);
+    List<TodoDTO> search(Status status);
 }
